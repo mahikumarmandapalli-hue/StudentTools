@@ -1,0 +1,6 @@
+{
+  "name": "StudentTools",
+  "description": "Free student calculators, scale & grade converter, Pomodoro timer, unit converter, Java learning guide, interview questions, and resume builder.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

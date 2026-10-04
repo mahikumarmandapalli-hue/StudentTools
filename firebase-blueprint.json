@@ -1,0 +1,181 @@
+{
+  "entities": {
+    "UserWorkspace": {
+      "title": "UserWorkspace",
+      "description": "Stores a student user's synced workspace state including Pomodoro study stats, resume builder fields, and study notes.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the workspace owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The display name of the student.",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "pomodoroSessions": {
+          "type": "number",
+          "description": "Total completed Pomodoro sessions."
+        },
+        "pomodoroMinutes": {
+          "type": "number",
+          "description": "Total completed Pomodoro focus minutes."
+        },
+        "resumeFullName": {
+          "type": "string",
+          "description": "Full name on the student's resume.",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "resumeTitle": {
+          "type": "string",
+          "description": "Role or headline on the student's resume.",
+          "minLength": 0,
+          "maxLength": 120
+        },
+        "resumeSummary": {
+          "type": "string",
+          "description": "Career objective or summary on the resume.",
+          "minLength": 0,
+          "maxLength": 2000
+        },
+        "resumeEducation": {
+          "type": "string",
+          "description": "Education details on the resume.",
+          "minLength": 0,
+          "maxLength": 2000
+        },
+        "resumeExperience": {
+          "type": "string",
+          "description": "Internship or work experience on the resume.",
+          "minLength": 0,
+          "maxLength": 3000
+        },
+        "resumeProjects": {
+          "type": "string",
+          "description": "Academic and personal projects on the resume.",
+          "minLength": 0,
+          "maxLength": 3000
+        },
+        "resumeSkillsText": {
+          "type": "string",
+          "description": "Comma-separated technical skills for the resume.",
+          "minLength": 0,
+          "maxLength": 1000
+        },
+        "resumeColor": {
+          "type": "string",
+          "description": "Hex accent color for the resume preview.",
+          "minLength": 4,
+          "maxLength": 20
+        },
+        "savedNotes": {
+          "type": "string",
+          "description": "Transcribed voice notes and study notes.",
+          "minLength": 0,
+          "maxLength": 5000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the workspace was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the workspace was last updated."
+        }
+      },
+      "required": [
+        "ownerId",
+        "displayName",
+        "pomodoroSessions",
+        "pomodoroMinutes",
+        "resumeFullName",
+        "resumeTitle",
+        "resumeSummary",
+        "resumeEducation",
+        "resumeExperience",
+        "resumeProjects",
+        "resumeSkillsText",
+        "resumeColor",
+        "savedNotes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "SavedCalculation": {
+      "title": "SavedCalculation",
+      "description": "A saved calculator result, grade conversion, or AI study note belonging to a specific user.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "The Firebase Auth UID of the calculation owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "toolName": {
+          "type": "string",
+          "description": "Name of the calculator or tool used.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "summary": {
+          "type": "string",
+          "description": "Primary result or headline summary.",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional calculation parameters or AI study content.",
+          "minLength": 0,
+          "maxLength": 2000
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the saved item.",
+          "enum": ["academic", "finance", "utility", "ai_note"],
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the record was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the record was last updated."
+        }
+      },
+      "required": [
+        "ownerId",
+        "toolName",
+        "summary",
+        "details",
+        "category",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/userWorkspaces/{userId}": {
+      "schema": "UserWorkspace",
+      "description": "Per-user workspace document indexed by the user's Firebase Auth UID."
+    },
+    "/savedCalculations/{calcId}": {
+      "schema": "SavedCalculation",
+      "description": "Saved calculator results and AI study snippets owned by users."
+    }
+  }
+}
